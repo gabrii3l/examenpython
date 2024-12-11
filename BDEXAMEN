@@ -1,0 +1,331 @@
+-- Crear la base de datos
+CREATE DATABASE Educacion_Python;
+GO
+USE Educacion_Python;
+GO
+
+-- Tabla Estudiantes
+CREATE TABLE Estudiantes (
+    EstudianteID INT PRIMARY KEY,
+    Nombre NVARCHAR(50),
+    Apellido NVARCHAR(50),
+    FechaNacimiento DATE,
+    Genero CHAR(1),
+    Correo NVARCHAR(100),
+    Telefono NVARCHAR(15),
+    Direccion NVARCHAR(255)
+);
+-- Insertar registros
+INSERT INTO Estudiantes (EstudianteID, Nombre, Apellido, FechaNacimiento, Genero, Correo, Telefono, Direccion)
+VALUES (1, 'Juan', 'Pérez', '2005-05-10', 'M', 'juan.perez@email.com', '123456789', 'Calle Falsa 123'),
+       -- Agregar más registros (total de 30 registros)
+       (2, 'María', 'Gómez', '2006-03-25', 'F', 'maria.gomez@email.com', '987654321', 'Av. Real 456'),
+	   (3, 'Luis', 'López', '2005-09-15', 'M', 'luis.lopez@email.com', '123123123', 'Calle Central 789'),
+		(4, 'Ana', 'Martínez', '2006-07-12', 'F', 'ana.martinez@email.com', '456456456', 'Plaza Norte 321'),
+		(5, 'Carlos', 'Fernández', '2004-11-20', 'M', 'carlos.fernandez@email.com', '789789789', 'Calle Sur 654'),
+		-- Continuar con más registros hasta llegar a 30
+		(6, 'Pedro', 'Ramírez', '2005-02-14', 'M', 'pedro.ramirez@email.com', '741852963', 'Av. Lima 555'),
+		(7, 'Lucía', 'Rojas', '2006-01-28', 'F', 'lucia.rojas@email.com', '852963741', 'Calle Vista 888'),
+		(8, 'Diego', 'Alonso', '2004-05-19', 'M', 'diego.alonso@email.com', '963741852', 'Calle Mayor 234'),
+		(9, 'Sofia', 'Reyes', '2006-04-01', 'F', 'sofia.reyes@email.com', '987654098', 'Av. Sur 121'),
+		(10, 'José', 'Torres', '2005-06-21', 'M', 'jose.torres@email.com', '654321987', 'Calle Oeste 134');
+
+-- Tabla Profesores
+CREATE TABLE Profesores (
+    ProfesorID INT PRIMARY KEY,
+    Nombre NVARCHAR(50),
+    Apellido NVARCHAR(50),
+	Genero CHAR(1),
+    Especialidad NVARCHAR(100),
+    Correo NVARCHAR(100),
+    Telefono NVARCHAR(15)
+);
+-- Insertar registros
+INSERT INTO Profesores (ProfesorID, Nombre, Apellido,Genero, Especialidad, Correo, Telefono)
+VALUES (1, 'Carlos', 'López','M', 'Matemáticas', 'carlos.lopez@email.com', '123123123'),
+       -- Agregar más registros (total de 30 registros)
+       (2, 'Ana', 'Martínez','F', 'Historia', 'ana.martinez@email.com', '321321321'),
+	   (3, 'Marcos', 'González','M', 'Física', 'marcos.gonzalez@email.com', '456456456'),
+(4, 'Laura', 'Sánchez','F', 'Lengua y Literatura', 'laura.sanchez@email.com', '654654654'),
+(5, 'José', 'Rodríguez','M', 'Biología', 'jose.rodriguez@email.com', '789789789'),
+-- Continuar con más registros hasta llegar a 30
+(6, 'Claudia', 'Pérez','F', 'Geografía', 'claudia.perez@email.com', '321654987'),
+(7, 'Alberto', 'García','M', 'Química', 'alberto.garcia@email.com', '951753456'),
+(8, 'Patricia', 'Romero','F', 'Filosofía', 'patricia.romero@email.com', '852741963'),
+(9, 'Javier', 'Silva','M', 'Informática', 'javier.silva@email.com', '753951258'),
+(10, 'Miguel', 'Vargas','M', 'Economía', 'miguel.vargas@email.com', '159357456');
+
+-- Tabla Cursos
+CREATE TABLE Cursos (
+    CursoID INT PRIMARY KEY,
+    Nombre NVARCHAR(100),
+    Descripcion NVARCHAR(255),
+    Creditos INT
+);
+-- Insertar registros
+INSERT INTO Cursos (CursoID, Nombre, Descripcion, Creditos)
+VALUES (1, 'Matemáticas Avanzadas', 'Curso de matemáticas para estudiantes de ingeniería', 4),
+       -- Agregar más registros (total de 30 registros)
+       (2, 'Historia del Arte', 'Análisis de la historia del arte', 3),
+	   (3, 'Física Moderna', 'Curso de física teórica y aplicada', 4),
+(4, 'Literatura Española', 'Estudio de los grandes clásicos', 3),
+(5, 'Biología General', 'Fundamentos de biología', 4),
+-- Continuar con más registros hasta llegar a 30
+(6, 'Geografía Humana', 'Estudio de las sociedades y su relación con el espacio', 3),
+(7, 'Química Orgánica', 'Fundamentos de química orgánica', 4),
+(8, 'Filosofía Antigua', 'Estudio de los filósofos antiguos', 3),
+(9, 'Programación Avanzada', 'Curso de desarrollo de software avanzado', 4),
+(10, 'Macroeconomía', 'Introducción a la economía global', 4),
+(11, 'Python', 'Introducción a Python', 4),
+(12, 'SQL', 'Introducción a SQL', 4),
+(13, 'PHP', 'Introducción a PHP', 4),
+(14, 'JavaScript', 'Introducción a JavaScript', 4),
+(15, 'Node', 'Introducción a Node', 4);
+
+-- Tabla Clases (Relación Cursos y Profesores)
+CREATE TABLE Clases (
+    ClaseID INT PRIMARY KEY,
+    CursoID INT FOREIGN KEY REFERENCES Cursos(CursoID),
+    ProfesorID INT FOREIGN KEY REFERENCES Profesores(ProfesorID),
+    Aula NVARCHAR(50)
+);
+-- Insertar registros
+INSERT INTO Clases (ClaseID, CursoID, ProfesorID, Aula)
+VALUES (1, 1, 1, 'Aula 101'),
+       -- Agregar más registros (total de 30 registros)
+       (2, 2, 2, 'Aula 202'),
+	   (3, 3, 3, 'Aula 303'),
+(4, 4, 4, 'Aula 404'),
+(5, 5, 5, 'Aula 505'),
+-- Continuar con más registros hasta llegar a 30
+(6, 6, 6, 'Aula 606'),
+(7, 7, 7, 'Aula 707'),
+(8, 8, 8, 'Aula 808'),
+(9, 9, 9, 'Aula 909'),
+(10, 10, 10, 'Aula 1010');
+
+-- Tabla Matriculas (Relación Estudiantes y Clases)
+CREATE TABLE Matriculas (
+    MatriculaID INT PRIMARY KEY,
+    EstudianteID INT FOREIGN KEY REFERENCES Estudiantes(EstudianteID),
+    ClaseID INT FOREIGN KEY REFERENCES Clases(ClaseID),
+    FechaMatricula DATE
+);
+-- Insertar registros
+INSERT INTO Matriculas (MatriculaID, EstudianteID, ClaseID, FechaMatricula)
+VALUES (1, 1, 1, '2023-09-01'),
+       -- Agregar más registros (total de 30 registros)
+       (2, 2, 2, '2023-09-02'),
+	   (3, 3, 3, '2023-09-03'),
+(4, 4, 4, '2023-09-04'),
+(5, 5, 5, '2023-09-05'),
+-- Continuar con más registros hasta llegar a 30
+(6, 6, 6, '2023-09-06'),
+(7, 7, 7, '2023-09-07'),
+(8, 8, 8, '2023-09-08'),
+(9, 9, 9, '2023-09-09'),
+(10, 10, 10, '2023-09-10');
+
+-- Tabla Evaluaciones
+CREATE TABLE Evaluaciones (
+    EvaluacionID INT PRIMARY KEY,
+    ClaseID INT FOREIGN KEY REFERENCES Clases(ClaseID),
+    Tipo NVARCHAR(50),
+    Fecha DATE
+);
+-- Insertar registros
+INSERT INTO Evaluaciones (EvaluacionID, ClaseID, Tipo, Fecha)
+VALUES (1, 1, 'Examen Parcial', '2023-10-01'),
+       -- Agregar más registros (total de 30 registros)
+       (2, 2, 'Examen Final', '2023-12-01'),	   
+(3, 3, 'Trabajo de Investigación', '2023-09-15'),
+(4, 4, 'Examen Parcial', '2023-10-10'),
+(5, 5, 'Examen Final', '2023-12-10'),
+-- Continuar con más registros hasta llegar a 15
+(6, 6, 'Proyecto Final', '2023-11-05'),
+(7, 7, 'Examen Parcial', '2023-10-05'),
+(8, 8, 'Examen Final', '2023-12-05'),
+(9, 9, 'Presentación Oral', '2023-09-20'),
+(10, 10, 'Examen Parcial', '2023-10-12')
+
+-- Tabla Notas
+CREATE TABLE Notas (
+    NotaID INT PRIMARY KEY,
+    EstudianteID INT FOREIGN KEY REFERENCES Estudiantes(EstudianteID),
+    EvaluacionID INT FOREIGN KEY REFERENCES Evaluaciones(EvaluacionID),
+    Calificacion DECIMAL(3, 2)
+);
+-- Insertar registros
+INSERT INTO Notas (NotaID, EstudianteID, EvaluacionID, Calificacion)
+VALUES (1, 1, 1, 3.5),
+       -- Agregar más registros (total de 30 registros)
+       (2, 2, 2, 3.2),
+	   (3, 3, 1, 5.8),
+(4, 4, 2, 3.3),
+(5, 5, 2, 2.2),
+-- Continuar con más registros hasta llegar a 30
+(6, 6, 2, 1.1),
+(7, 7, 3, 1.3),
+(8, 8, 3, 6.6),
+(9, 9, 3, 6.5),
+(10, 10, 4, 7.0),
+(11, 10, 4, 5.5),
+(12, 8, 4, 4.3),
+(13, 5, 5, 4.2),
+(14, 4, 5, 4.2),
+(15, 5, 5, 6.6),
+(16, 6, 6, 6.4),
+(17, 7, 6, 4.8),
+(18, 8, 6, 5.3),
+(19, 9, 7, 6.6),
+(20, 1, 7, 5.8),
+(21, 1, 7, 5.9),
+(22, 2, 8, 7.0),
+(23, 3, 8, 6.0),
+(24, 4, 8, 5.5),
+(25, 5, 9, 5.9),
+(26, 6, 9, 5.7),
+(27, 7, 9, 4.3),
+(28, 8, 10, 6.6),
+(29, 9, 10, 7.0),
+(30, 2, 10, 5.5);
+
+-- Tabla Departamentos
+CREATE TABLE Departamentos (
+    DepartamentoID INT PRIMARY KEY,
+    Nombre NVARCHAR(100),
+    JefeDepartamento NVARCHAR(100)
+);
+-- Insertar registros
+INSERT INTO Departamentos (DepartamentoID, Nombre, JefeDepartamento)
+VALUES (1, 'Ciencias Básicas', 'Dr. Juan Ramírez'),
+       -- Agregar más registros (total de 30 registros)
+       (2, 'Humanidades', 'Dra. Alicia Fernández'),
+	   (3, 'Departamento de Psicología', 'Dr. Alicia Gómez'),
+(4, 'Departamento de Música', 'Prof. Andrés Torres'),
+(5, 'Departamento de Ciencias Políticas', 'Dr. Fernanda López'),
+(6, 'Departamento de Ingeniería Química', 'Dr. Mario Rivera'),
+(7, 'Departamento de Filosofía', 'Dr. Luisa Romero'),
+(8, 'Departamento de Educación Física', 'Prof. Carlos Pérez'),
+(9, 'Departamento de Sociología', 'Dr. Mariana Rojas'),
+(10, 'Departamento de Geología', 'Dr. Antonio Delgado');
+
+-- Tabla Aulas
+CREATE TABLE Aulas (
+    AulaID INT PRIMARY KEY,
+    Nombre NVARCHAR(50),
+    Capacidad INT
+);
+-- Insertar registros
+INSERT INTO Aulas (AulaID, Nombre, Capacidad)
+VALUES (1, 'Aula 101', 30),
+       -- Agregar más registros (total de 30 registros)
+       (2, 'Aula 202', 40),
+	   (3, 'Aula 106', 40),
+		(4, 'Aula 207', 35),
+		(5, 'Aula 308', 30),
+		(6, 'Aula 409', 25),
+		(7, 'Aula 510', 50),
+		(8, 'Laboratorio Química', 20),
+		(9, 'Laboratorio Física', 25),
+		(10, 'Auditorio Principal', 100),
+		(11, 'Sala de Conferencias', 60),
+		(12, 'Aula de Música', 30);
+
+-- Tabla Horarios
+CREATE TABLE Horarios (
+    HorarioID INT PRIMARY KEY,
+    ClaseID INT FOREIGN KEY REFERENCES Clases(ClaseID),
+    DiaSemana NVARCHAR(20),
+    HoraInicio TIME,
+    HoraFin TIME
+);
+-- Insertar registros
+INSERT INTO Horarios (HorarioID, ClaseID, DiaSemana, HoraInicio, HoraFin)
+VALUES (1, 1, 'Lunes', '08:00', '10:00'),
+       -- Agregar más registros (total de 30 registros)
+       (2, 2, 'Martes', '10:00', '12:00');
+
+-- Tabla Asistencias
+CREATE TABLE Asistencias (
+    AsistenciaID INT PRIMARY KEY,
+    EstudianteID INT FOREIGN KEY REFERENCES Estudiantes(EstudianteID),
+    ClaseID INT FOREIGN KEY REFERENCES Clases(ClaseID),
+    Fecha DATE,
+    Presente BIT
+);
+-- Insertar registros
+INSERT INTO Asistencias (AsistenciaID, EstudianteID, ClaseID, Fecha, Presente)
+VALUES (1, 1, 1, '2023-09-03', 1),
+       -- Agregar más registros (total de 30 registros)
+       (2, 2, 2, '2023-09-04', 0),	   
+		(3, 1, 1, '2023-09-01', 1),
+		(4, 2, 1, '2023-09-01', 1),
+		(5, 3, 2, '2023-09-01', 0),
+		(6, 4, 2, '2023-09-02', 1),
+		(7, 5, 3, '2023-09-02', 1),
+		(8, 6, 3, '2023-09-02', 0),
+		(9, 7, 4, '2023-09-03', 1),
+		(10, 8, 4, '2023-09-03', 1),
+		(11, 9, 5, '2023-09-03', 0),
+		(12, 10, 5, '2023-09-04', 1),
+		(13, 1, 6, '2023-09-04', 1),
+		(14, 2, 6, '2023-09-04', 1),
+		(15, 3, 7, '2023-09-05', 0),
+		(16, 4, 7, '2023-09-05', 1),
+		(17, 5, 8, '2023-09-06', 1);
+
+-- Tabla Eventos
+CREATE TABLE Eventos (
+    EventoID INT PRIMARY KEY,
+    Nombre NVARCHAR(100),
+    Fecha DATE,
+    Lugar NVARCHAR(100)
+);
+-- Insertar registros
+INSERT INTO Eventos (EventoID, Nombre, Fecha, Lugar)
+VALUES (1, 'Conferencia Ciencias', '2023-11-15', 'Auditorio Central'),
+       -- Agregar más registros (total de 30 registros)
+       (2, 'Feria del Libro', '2023-11-25', 'Patio Principal');
+
+-- Tabla Biblioteca
+CREATE TABLE Biblioteca (
+    LibroID INT PRIMARY KEY,
+    Titulo NVARCHAR(200),
+    Autor NVARCHAR(100),
+    ISBN NVARCHAR(20)
+);
+-- Insertar registros
+INSERT INTO Biblioteca (LibroID, Titulo, Autor, ISBN)
+VALUES (1, 'Cálculo I', 'James Stewart', '978-0-495-55655-0'),
+       -- Agregar más registros (total de 30 registros)
+       (2, 'Historia de la Filosofía', 'Frederick Copleston', '978-0-14-044923-5');
+
+-- Tabla Prestamos_Biblioteca
+CREATE TABLE Prestamos_Biblioteca (
+    PrestamoID INT PRIMARY KEY,
+    LibroID INT FOREIGN KEY REFERENCES Biblioteca(LibroID),
+    EstudianteID INT FOREIGN KEY REFERENCES Estudiantes(EstudianteID),
+    FechaPrestamo DATE,
+    FechaDevolucion DATE
+);
+-- Insertar registros
+INSERT INTO Prestamos_Biblioteca (PrestamoID, LibroID, EstudianteID, FechaPrestamo, FechaDevolucion)
+VALUES (1, 1, 1, '2023-09-05', '2023-09-15'),
+       -- Agregar más registros (total de 30 registros)
+       (2, 2, 2, '2023-09-06', '2023-09-16');
+
+-- Tabla Personal_Administrativo
+CREATE TABLE Personal_Administrativo (
+    PersonalID INT PRIMARY KEY,
+    Nombre NVARCHAR(50),
+    Apellido NVARCHAR(50),
+    Cargo NVARCHAR(100),
+    Correo NVARCHAR(100),
+    Telefono NVARCHAR(15)
+);
+-- Insertar registros
+INSERT INTO Personal_Administrativo (PersonalID, Nombre, Apellido, Cargo, Correo, Telefono)
+VALUES (1, 'Luis', 'Suarez', 'Secretario General', 'luis.suarez@email.com', '321654987'),
+       -- Agregar más registros (total de 30 registros)
+       (2, 'Sofia', 'Lopez', 'Coordinadora Académica', 'sofia.lopez@email.com', '654321987');
